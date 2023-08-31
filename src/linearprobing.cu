@@ -135,7 +135,7 @@ void lookup_hashtable(KeyValue* pHashTable, KeyValue* kvs, uint32_t num_kvs)
 
     // Insert all the keys into the hash table
     int gridsize = ((uint32_t)num_kvs + threadblocksize - 1) / threadblocksize;
-    gpu_hashtable_lookup << <gridsize, threadblocksize >> > (pHashTable, device_kvs, (uint32_t)num_kvs);
+    gpu_hashtable_lookup <<<gridsize, threadblocksize >>> (pHashTable, device_kvs, (uint32_t)num_kvs);
 
     cudaEventRecord(stop);
 
@@ -198,7 +198,7 @@ void delete_hashtable(KeyValue* pHashTable, const KeyValue* kvs, uint32_t num_kv
 
     // Insert all the keys into the hash table
     int gridsize = ((uint32_t)num_kvs + threadblocksize - 1) / threadblocksize;
-    gpu_hashtable_delete<< <gridsize, threadblocksize >> > (pHashTable, device_kvs, (uint32_t)num_kvs);
+    gpu_hashtable_delete<<<gridsize, threadblocksize >>> (pHashTable, device_kvs, (uint32_t)num_kvs);
 
     cudaEventRecord(stop);
 
